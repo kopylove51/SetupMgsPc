@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "README.md",
+                "file": "02-2024/03-02.md",
                 "mode": "source",
                 "source": false
               }
@@ -85,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "README.md",
+                "file": "02-2024/03-02.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "README.md",
+                "file": "02-2024/03-02.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -125,7 +125,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "README.md"
+                "file": "02-2024/03-02.md"
               }
             }
           }
@@ -146,8 +146,13 @@
       "command-palette:Открыть палитру команд": false
     }
   },
-  "active": "740a4d8b38ecfc66",
+  "active": "a64bcd0732621911",
   "lastOpenFiles": [
+    "02-2024/02-02.md",
+    "02-2024/03-02.md",
+    "README.md",
+    "02-2024/02-02.txt",
+    "02-2024/02-02.tx",
     "02-2024/02-02",
     "02-2024"
   ]
