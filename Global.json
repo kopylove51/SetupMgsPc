@@ -1,0 +1,12 @@
+{
+  "LastVersionCheck": "0001-01-01T00:00:00",
+  "Perforce": {},
+  "Filter": {
+    "IncludeCategories": [],
+    "ExcludeCategories": [],
+    "View": [],
+    "AllProjects": true,
+    "AllProjectsInSln": false
+  },
+  "AutoResolveConflicts": true
+}
