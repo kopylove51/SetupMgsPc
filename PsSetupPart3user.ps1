@@ -40,12 +40,12 @@ while ($p4LoginOutput -like "*Password invalid.*") {
     $p4pass = [System.Runtime.InteropServices.Marshal]::PtrToStringAuto([System.Runtime.InteropServices.Marshal]::SecureStringToBSTR($p4pass))
     $p4LoginOutput = (echo $p4pass | p4 login 2>&1)
 }
-Pause
+#Pause
 p4 -d  $rootDerectory client -o $p4clientName `
     |% {$_ -replace "Options:	noallwrite noclobber nocompress unlocked nomodtime normdir", "Options:	$wsOptions"} `
     |% {$_ -replace "SubmitOptions:	submitunchanged", "SubmitOptions:	revertunchanged`n`nStream:	$p4stream"}| p4 client -i
 Write-Host "p4 ws has been created"
-Pause
+#Pause
 
 #sync p4 ws
 p4 set p4client=$p4clientName
@@ -53,7 +53,7 @@ p4 info
 Start-Process p4 -ArgumentList "sync //UE5/Development/AtomicOnline/AtomicOnline.uproject" -Wait
 Start-Process p4 -ArgumentList "sync //UE5/Development/WorkspaceSetup.bat" -Wait
 Write-Host "p4 ws has been synced"
-Pause
+#Pause
 
 #$p4qtPath = "$env:USERPROFILE\.p4qt\ApplicationSettings.xml"
 #$p4config = Get-Content -Path $p4qtPath
@@ -69,14 +69,14 @@ if ($userProjectConfig -eq 2) {
         } else {
             Write-Host "path in registry already exists"
         }
-        Pause
+        #Pause
 
         #create entries in the registry
         Set-ItemProperty -Path $regUgsPath -Name "DepotPath" -Value "//ue5/unrealgamesync/"
         Set-ItemProperty -Path $regUgsPath -Name "ServerAndPort" -Value "perforce:1666"
         Set-ItemProperty -Path $regUgsPath -Name "UserName" -Value $p4user
         Write-Host "registry entries added"
-        Pause
+        #Pause
 
         #copy configuration file templates and change them
         #Start-Process git -ArgumentList "clone --progress https://kopylove51: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@github.com/kopylove51/Work-diary-and-notes.git `"$installPath\pcInstallArtefacts`"" -Wait
@@ -87,12 +87,12 @@ if ($userProjectConfig -eq 2) {
         $ClientPath = "//"+$p4clientName+"/AtomicOnline/AtomicOnline.uproject"
         $LocalPath = ((Get-ChildItem -Path $rootDerectory -Recurse -Filter "AtomicOnline.uproject").FullName).Replace("\", "\\")
         Write-Host "lastProject & OpenProjects lines received:`nClientPath = $ClientPath`nLocalPath = $LocalPath"
-        Pause
+        #Pause
 
         #copy the templates to the destination directory
         Copy-Item -Path "$installPath\pcInstallArtefacts\UnrealGameSyncV2.ini", "$installPath\pcInstallArtefacts\Global.json" -Destination $ugsUserDerectory #-Force
         Write-Host "templates copied in $ugsUserDerectory"
-        Pause
+        #Pause
 
         #converting templates into a working version
         $ugsIniFile = Get-Content -Path "$ugsUserDerectory\UnrealGameSyncV2.ini"
@@ -100,7 +100,7 @@ if ($userProjectConfig -eq 2) {
         $newUgsIniFile | Set-Content -Path "$ugsUserDerectory\UnrealGameSyncV2.ini"
         Get-Content -Path "$ugsUserDerectory\UnrealGameSyncV2.ini"
         Write-Host "UGS config files addided"
-        Pause
+        #Pause
 
         Start-process -FilePath "C:\Program Files (x86)\UnrealGameSync\UnrealGameSyncLauncher.exe"
     }

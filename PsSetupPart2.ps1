@@ -44,7 +44,7 @@ foreach ($source in $mgsChocoSources) {
     }
 }
 Write-Host "Mgs-choco source has been installed"
-Pause
+#Pause
 
 #installing choco packages
 $userProjectConfig = Get-Content -Path "$installPath\Variable.txt"
@@ -69,7 +69,7 @@ elseif ($userProjectConfig -eq 2)
 Start-Process -FilePath choco -ArgumentList "install googlechrome notepadplusplus p4 p4v slack 7zip $userChocoPackages -y" -Wait 
 Stop-process -name "UnrealGameSyncLauncher" -force
 Write-Host "Mgs-choco packages has been installed"
-Pause
+#Pause
 
 #update environment variables after installing packages
 $env:ChocolateyInstall = Convert-Path "$((Get-Command choco).Path)\..\.."
