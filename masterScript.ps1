@@ -6,10 +6,10 @@ $pass = ConvertTo-SecureString -String ((Get-ItemProperty -Path $regPath -Name D
 $credential = New-Object -TypeName System.Management.Automation.PSCredential -ArgumentList "mundfish\$user", $pass
 
 #start part2 from admin
-Start-Process powershell -FilePath "$installPath\pcInstallArtefacts\PsSetupPart2.ps1" -Wait
+Start-Process powershell -ArgumentList "$installPath\pcInstallArtefacts\PsSetupPart2.ps1" -Wait
 
 #start part3 from user
-Start-Process PowerShell -FilePath "$installPath\pcInstallArtefacts\PsSetupPart3user.ps1" -Credential $credential -Wait
+Start-Process PowerShell -ArgumentList "$installPath\pcInstallArtefacts\PsSetupPart3user.ps1" -Credential $credential -Wait
 
 #start part4 from admin
-Start-Process powershell -FilePath "$installPath\pcInstallArtefacts\PsSetupPart4.ps1" -Wait
+Start-Process powershell -ArgumentList "$installPath\pcInstallArtefacts\PsSetupPart4.ps1" -Wait
