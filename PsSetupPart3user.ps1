@@ -1,5 +1,6 @@
 ##need run from user
 $installPath = 'C:\ops'
+Start-Transcript -Append "$installPath\Logs\psSetupLog.txt"
 $userProjectConfig = Get-Content -Path "$installPath\Variable.txt"
 $regUgsPath = "HKCU:\SOFTWARE\Epic Games\UnrealGameSync"
 $ugsUserDerectory = "$env:LOCALAPPDATA\UnrealGameSync\"
@@ -106,6 +107,7 @@ if ($userProjectConfig -eq 2) {
     }
 
 $rootDerectory | Out-File -FilePath "$installPath\Variable.txt" # -Append
+Stop-Transcript
 
 
    

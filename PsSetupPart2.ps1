@@ -1,6 +1,6 @@
 #need run from admin
 $installPath = 'C:\ops'
-
+Start-Transcript -Append "$installPath\Logs\psSetupLog.txt"
 #checking if choco is installed
 # if (-not (Test-Path "C:\ProgramData\chocolatey\choco.exe"))
 # {
@@ -79,3 +79,4 @@ $env:ChocolateyInstall = Convert-Path "$((Get-Command choco).Path)\..\.."
 Import-Module "$env:ChocolateyInstall\helpers\chocolateyProfile.psm1"
 refreshenv
 Write-host ("environment variables refreshed")
+Stop-Transcript
