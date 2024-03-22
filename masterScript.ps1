@@ -1,6 +1,6 @@
 $installPath = 'C:\ops'
 
-Start-Transcript -Append "$installPath\Logs\psSetupLog.txt"
+Start-Transcript -Append "$installPath\Logs\psSetupLog1.txt"
 
 $regPath = "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon"
 $user = (Get-ItemProperty -Path $regPath -Name DefaultUserName).DefaultUserName

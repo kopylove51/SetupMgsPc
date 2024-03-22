@@ -1,6 +1,6 @@
 #need run from admin
 $installPath = 'C:\ops'
-Start-Transcript -Append "$installPath\Logs\psSetupLog.txt"
+Start-Transcript -Append "$installPath\Logs\psSetupLog2.txt"
 #checking if choco is installed
 # if (-not (Test-Path "C:\ProgramData\chocolatey\choco.exe"))
 # {

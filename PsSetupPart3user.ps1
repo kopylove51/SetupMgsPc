@@ -1,7 +1,8 @@
 ##need run from user
 $installPath = 'C:\ops'
-Start-Transcript -Append "$installPath\Logs\psSetupLog.txt"
+Start-Transcript -Append "$installPath\Logs\psSetupLog3.txt"
 $userProjectConfig = Get-Content -Path "$installPath\Variable.txt"
+$rootDerectory = Get-Content -Path "$installPath\rootDerectoryP4.txt"
 $regUgsPath = "HKCU:\SOFTWARE\Epic Games\UnrealGameSync"
 $ugsUserDerectory = "$env:LOCALAPPDATA\UnrealGameSync\"
 
@@ -22,12 +23,12 @@ elseif ($userProjectConfig -eq 2)
         $wsOptions="noallwrite noclobber compress unlocked nomodtime rmdir"
     }
 
-#request to select stream home directory
-$steamDerectoryObject = New-Object -comObject Shell.Application
-$steamDerectoryFolder = $steamDerectoryObject.BrowseForFolder(0, 'Select perforce root derectory', 1,0)
-if ($steamDerectoryFolder -ne $null) {
-    $rootDerectory = $steamDerectoryFolder.Self.Path
-}
+# #request to select stream home directory
+# $steamDerectoryObject = New-Object -comObject Shell.Application
+# $steamDerectoryFolder = $steamDerectoryObject.BrowseForFolder(0, 'Select perforce root derectory', 1,0)
+# if ($steamDerectoryFolder -ne $null) {
+#     $rootDerectory = $steamDerectoryFolder.Self.Path
+# }
 
 #creating p4WS
 $p4clientName = "$env:USERNAME"+"_"+"$p4streamName"
@@ -106,7 +107,6 @@ if ($userProjectConfig -eq 2) {
         Start-process -FilePath "C:\Program Files (x86)\UnrealGameSync\UnrealGameSyncLauncher.exe"
     }
 
-$rootDerectory | Out-File -FilePath "$installPath\Variable.txt" # -Append
 Stop-Transcript
 
 
