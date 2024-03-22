@@ -69,7 +69,7 @@ elseif ($userProjectConfig -eq 2)
 #временный блок, последняя версия пакета p4 p4v битые в репе чоко, не сходятся чексуммы
 Start-Process -FilePath choco -ArgumentList "install p4 --version 2023.2.0 -y" -Wait
 Start-Process -FilePath choco -ArgumentList "install p4v --version 2023.2.0 -y" -Wait
-Start-Process -FilePath choco -ArgumentList "install googlechrome notepadplusplus slack 7zip nvidia-display-driver $userChocoPackages -y" -Wait 
+Start-Process -FilePath choco -ArgumentList "install googlechrome notepadplusplus slack 7zip $userChocoPackages -y" -Wait  #nvidia-display-driver
 Stop-process -name "UnrealGameSyncLauncher" -force
 Write-Host "Mgs-choco packages has been installed"
 #Pause
