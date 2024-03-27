@@ -1,20 +1,5 @@
 #need run from admin
 $installPath = 'C:\ops'
-Start-Transcript -Append "$installPath\Logs\psSetupLog2.txt"
-#checking if choco is installed
-# if (-not (Test-Path "C:\ProgramData\chocolatey\choco.exe"))
-# {
-#     write-host "Chocolate not installed,installing it"
-#     Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
-# }
-# else 
-# {
-#     write-host "Сhocolate already installed"
-# }
-# Write-Host "choco has been installed"
-# Pause
-
-#Check/configure chocolatey source
 $nexusAddress = "http://nexus.mundfish.lan:8700/repository"
 
 $mgsChocoSources = @(
@@ -44,7 +29,6 @@ foreach ($source in $mgsChocoSources) {
     }
 }
 Write-Host "Mgs-choco source has been installed"
-#Pause
 
 #installing choco packages
 $userProjectConfig = Get-Content -Path "$installPath\Variable.txt"
@@ -66,17 +50,19 @@ elseif ($userProjectConfig -eq 2)
         $wsOptions="noallwrite noclobber compress unlocked nomodtime rmdir"
     }
 
-#временный блок, последняя версия пакета p4 p4v битые в репе чоко, не сходятся чексуммы
-Start-Process -FilePath choco -ArgumentList "install p4 --version 2023.2.0 -y" -Wait
-Start-Process -FilePath choco -ArgumentList "install p4v --version 2023.2.0 -y" -Wait
-Start-Process -FilePath choco -ArgumentList "install googlechrome notepadplusplus slack 7zip $userChocoPackages -y" -Wait  #nvidia-display-driver
+#install p4 & p4v
+Invoke-WebRequest -Uri "https://www.perforce.com/downloads/perforce/r24.1/bin.ntx64/p4vinst64.exe" -OutFile "$installPath\pcInstallArtefacts\p4vinst64.exe"
+Start-Process -FilePath "$installPath\pcInstallArtefacts\p4vinst64.exe" -ArgumentList "/s REMOVEAPPS=P4ADMIN,P4MERGE" -Wait
+if (-not (Test-Path "C:\Program Files\Perforce\p4v.exe")) {
+    Start-Process -FilePath choco -ArgumentList "install p4 p4v -y" -Wait
+    }
+Start-Process -FilePath choco -ArgumentList "install googlechrome notepadplusplus slack 7zip geforce-game-ready-driver $userChocoPackages -y" -Wait
 Stop-process -name "UnrealGameSyncLauncher" -force
 Write-Host "Mgs-choco packages has been installed"
-#Pause
+
 
 #update environment variables after installing packages
 $env:ChocolateyInstall = Convert-Path "$((Get-Command choco).Path)\..\.."
 Import-Module "$env:ChocolateyInstall\helpers\chocolateyProfile.psm1"
 refreshenv
 Write-host ("environment variables refreshed")
-Stop-Transcript

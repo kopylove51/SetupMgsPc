@@ -1,7 +1,5 @@
 $installPath = 'C:\ops'
 
-Start-Transcript -Append "$installPath\Logs\psSetupLog1.txt"
-
 $regPath = "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon"
 $user = (Get-ItemProperty -Path $regPath -Name DefaultUserName).DefaultUserName
 $pass = ConvertTo-SecureString -String ((Get-ItemProperty -Path $regPath -Name DefaultPassword).DefaultPassword) -AsPlainText -Force
@@ -13,9 +11,13 @@ Start-Process powershell -ArgumentList "$installPath\pcInstallArtefacts\PsSetupP
 
 #start part3 from user
 Write-Host "Start of third part of script. Run as user. Working with p4 and UGS"
-Start-Process PowerShell -ArgumentList "$installPath\pcInstallArtefacts\PsSetupPart3user.ps1" -Credential $credential -Wait
+if ($user -ne $null -and $pass -ne $null) {
+    Start-Process PowerShell -ArgumentList "$installPath\pcInstallArtefacts\PsSetupPart3user.ps1" -Credential $credential -Wait
+}
+else {
+    Start-Process PowerShell -ArgumentList "$installPath\pcInstallArtefacts\PsSetupPart3user.ps1" -Credential "mundfish\" -Wait
+}    
 
 #start part4 from admin
 Write-Host "Start of last part of script. Run as administrator."
 Start-Process powershell -ArgumentList "$installPath\pcInstallArtefacts\PsSetupPart4.ps1" -Wait
-Stop-Transcript

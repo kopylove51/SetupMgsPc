@@ -1,6 +1,5 @@
 ##need run from user
 $installPath = 'C:\ops'
-Start-Transcript -Append "$installPath\Logs\psSetupLog3.txt"
 $userProjectConfig = Get-Content -Path "$installPath\Variable.txt"
 $rootDerectory = Get-Content -Path "$installPath\rootDerectoryP4.txt"
 $regUgsPath = "HKCU:\SOFTWARE\Epic Games\UnrealGameSync"
@@ -52,8 +51,9 @@ Write-Host "p4 ws has been created"
 #sync p4 ws
 p4 set p4client=$p4clientName
 p4 info
-Start-Process p4 -ArgumentList "sync //UE5/Development/AtomicOnline/AtomicOnline.uproject" -Wait
-Start-Process p4 -ArgumentList "sync //UE5/Development/WorkspaceSetup.bat" -Wait
+Start-Process p4 -ArgumentList "sync //UE5/Development/" -Wait
+#Start-Process p4 -ArgumentList "sync //UE5/Development/AtomicOnline/AtomicOnline.uproject" -Wait
+#Start-Process p4 -ArgumentList "sync //UE5/Development/WorkspaceSetup.bat" -Wait
 Write-Host "p4 ws has been synced"
 #Pause
 
@@ -106,8 +106,3 @@ if ($userProjectConfig -eq 2) {
 
         Start-process -FilePath "C:\Program Files (x86)\UnrealGameSync\UnrealGameSyncLauncher.exe"
     }
-
-Stop-Transcript
-
-
-   
